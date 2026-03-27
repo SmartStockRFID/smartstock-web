@@ -11,7 +11,7 @@ const kodchasan = Kodchasan({
   subsets: ["latin"],
 });
 
-export default function LoginPage() {
+export function LoginPage() {
   return (
     <div className="flex flex-col items-center justify-center gap-6 p-2 sm:p-6 bg-muted min-h-svh md:p-10">
       <div className="flex flex-col w-full max-w-sm gap-6">

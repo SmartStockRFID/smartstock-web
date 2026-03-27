@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { AppRoutes, DEFAULT_HEADERS } from "@/constants";
-import { env } from "@/env/server";
+import { env } from "@/env";
 import { ExternalAPIException, NetworkFetchException } from "@/exceptions";
 import { AuthCookies } from "./cookies";
 import { refreshTokenAction } from "./mutations";

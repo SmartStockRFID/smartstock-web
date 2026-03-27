@@ -1,5 +1,5 @@
 import type { Route } from "next";
-import { env } from "./env/client";
+import { env } from "./env";
 
 interface AssetsDefinition {
   [key: string]: string | AssetsDefinition;

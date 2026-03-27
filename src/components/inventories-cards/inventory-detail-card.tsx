@@ -77,7 +77,7 @@ export function InventoryDetailCard(props: Props) {
                 <Button
                   onClick={async () => {
                     const blob = await getInventoriePdf(
-                      props.selectedInventory!.id,
+                      props.selectedInventory?.id ?? -1,
                     );
 
                     if (blob instanceof Error) {

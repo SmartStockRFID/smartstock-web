@@ -6,7 +6,7 @@ import { useFetchData } from "@/hooks/use-fetch-data";
 import { RequestStatus } from "@/types";
 import { ErrorWidget, LoadingWidget } from "./_components";
 
-export default function ProductsPage() {
+export function ProductsPage() {
   const productsReq = useFetchData(getProducts);
 
   return (

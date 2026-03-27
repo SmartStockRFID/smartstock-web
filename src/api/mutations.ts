@@ -1,7 +1,7 @@
 "use server";
 
 import { DEFAULT_HEADERS } from "@/constants";
-import { env } from "@/env/server";
+import { env } from "@/env";
 import type { ApplicationException } from "@/exceptions";
 import type {
   APIErrorDTO,
@@ -78,7 +78,7 @@ let refreshPromise: Promise<RefreshReturn> | null = null;
 
 /**
  * Faz refresh dos tokens de forma thread-safe
- * Evita m�ltiplas chamadas simult�neas de refresh
+ * Evita múltiplas chamadas simultâneas de refresh
  */
 export async function refreshTokenAction(): Promise<RefreshReturn> {
   if (refreshPromise) return refreshPromise;

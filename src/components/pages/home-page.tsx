@@ -17,7 +17,7 @@ const PageTabs = {
   employees: "Funcionários",
 };
 
-export default function HomePage({
+export function HomePage({
   selectedInventory,
 }: {
   selectedInventory: string | string[] | null;

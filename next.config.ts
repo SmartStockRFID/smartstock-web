@@ -1,18 +1,18 @@
 import type { NextConfig } from "next";
-import { env as clientEnv } from "@/env/client";
-import { env as serverEnv } from "@/env/server";
+import { env } from "@/env";
 
-console.debug(clientEnv);
-console.debug(serverEnv);
+void env;
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  // output: 'standalone',  // Discomment to run production compose
-  transpilePackages: ["@t3-oss/env-nextjs"],
-  reactCompiler: true,
+  reactCompiler: process.env.NODE_ENV === "production",
   typedRoutes: true,
   experimental: {
     turbopackFileSystemCacheForDev: true,
+  },
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
   },
 };
 
