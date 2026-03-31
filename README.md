@@ -7,11 +7,11 @@
 
   O front oferece acesso às seguintes funcionalidades:
 
-  - **Histórico de Conferências (Parcialmente implementada)**: Visualize um histórico detalhado de todas as conferências de inventário realizadas, incluindo leituras de produtos e eventos associados.
-  - **CRUD de Produtos (Temporária\*)**: Adicione novos produtos ao inventário, especificando nome, código, descrição e localização, e depois consulte e filtre a lista de produtos já cadastrados no sistema.
-  - **Gestão de Usuários (Futura)**: Registre novos usuários no sistema e os gerencie, atribuindo diferentes funções como Administrador ou Operador.
+  - **Histórico de Conferências**: Visualize um histórico detalhado de todas as conferências de inventário realizadas, incluindo leituras de produtos e eventos associados.
+  - **Gestão de Usuários**: Registre novos usuários no sistema e os gerencie, atribuindo diferentes funções como Administrador ou Operador.
+  - **CRUD de Produtos (Provisória\*)**: Adicione novos produtos ao inventário, especificando nome, código, descrição e localização, e depois consulte e filtre a lista de produtos já cadastrados no sistema.
 
-  *Devido ao seu caráter temporário, essa funcionalidade foi codificada com auxílio de ferramentas _low-code_. Os arquivos feitos assim podem ser diferenciados pelo comentário "low-code" em seu topo.
+  *No produto final, a expectativa é de somente realizar integração com um módulo de gestão de produtos de outro sistema já existente.
 
   ## 🚀 Tecnologias Utilizadas
 
@@ -31,15 +31,17 @@
   * [Node.js](https://nodejs.org/) (versão 20.9 ou superior)
   * [pnpm](https://pnpm.io/) (gerenciador de pacotes recomendado)
 
+  OU
+
+  * [Docker](https://docs.docker.com/engine/install/)
+
 
   ### Instalação
 
-
-
   1.  Clone o repositório:
       ```bash
-      git clone {repositório do ssrfid-front}
-      cd ssrfid-front
+      git clone {repositório do smarstock-web}
+      cd smartstock-web
       ```
 
   2.  Instale as dependências:
@@ -61,44 +63,39 @@
   ```
 
 
+  Ou, para subir o container do projeto localmente, utilize um dos comandos abaixo:
+
+  ```bash
+  # Subir os serviços definidos no arquivo local.yml
+  docker compose -f compose.dev.yaml up
+
+  # Subir os serviços e forçar a reconstrução das imagens
+  docker compose -f compose.dev.yaml up --build
+  ```
+
+  Para derrubar (parar e remover) os containers:
+
+  ```bash
+  docker compose -f compose.dev.yaml down
+  ```
+
+
 
   Abra [http://localhost:3000](http://localhost:3000) no seu navegador para ver o resultado. A página será atualizada automaticamente conforme você edita os arquivos.
 
+  ## 🌐 Deploy em produção
 
+  Enquanto projeto Node.js, a aplicação pode ser deployada de maneira simples na maioria dos provedores de nuvem. O jeito mais prático é na [Vercel](https://vercel.com), mas há muitas opções, como [Netlify](https://www.netlify.com/) e [Render](https://render.com/).
 
-  ## 📁 Estrutura do Projeto
+  Para _self-hosting_, você pode usar o arquivo [`compose.prod.yaml`]() para subir a aplicação em produção. Além do próprio Next.js, o compose também configura um servidor Nginx.
 
-  A estrutura de pastas do projeto segue as convenções do Next.js App Router:
+  ## 🔮 Futuro do projeto
 
-  ```
-  src/
-  ├── api/                    # Lógica de comunicação com a API
-  │   ├── app/                # Páginas e Layouts
-  ├── components/             # Componentes React reutilizáveis
-  │   ├── ui                  # Componentes base (shadcn/ui)
-  ├── constants.ts            # Configurações da aplicação
-  ├── env/                    # Configuração e validação de variáveis de ambiente
-  ├── hooks/                  # Hooks customizados
-  ├── types.ts                # Definições de tipos TypeScript
-  └── utils.ts                # Funções utilitárias
-  ```
+  Na continuidade do projeto, esses poderiam ser os próximos passos:
 
-  ## ✅ Todo
-
-  As seguintes funcionalidades ainda precisam ser implementadas:
-
-  - Visualização dos detalhes do Inventário em formato de Drawer no mobile
-  - Em detalhes do Inventário, adicionar lista de produtos e eventos associados a ele
   - Paginação na listagem de Inventários
-  - Dockerizar aplicação
-  - Adicionar relatórios dos Inventários em CSV/PDF
+  - Expandir/enriquecer relatórios dos Inventários
   - Adicionar gráficos com informações sobre os Inventários em sua listagem
   - Alterar o back pra retornar a data/hora do inventario no GetAll _(em caso de demora)_
-  - CRUD de funcionários _(aguardando backend)_
-  - Melhorar experiência mobile e completar CRUD no módulo de Produtos _(baixa prioridade)_
-  - Adicionar uma cobertura mínima de testes _(desejável)_
-
-
-## 👀 OBS:
-
-- Onde você ver object instanceof Error, deveria ser object instanceof ApplicationException (para pegar os tipos ExternalAPIException e NetworkFetchException), mas por algum motivo retorna false sempre.
+  - Adicionar cobertura de testes
+  - Completar CRUD no módulo de Produtos* _(lembrando que é um módulo temporário)_
