@@ -1,5 +1,3 @@
-"use client";
-
 import type { ReactNode } from "react";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 

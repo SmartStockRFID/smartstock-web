@@ -51,7 +51,7 @@ export function EmployeeForm({ className }: { className?: string }) {
     <Card className={cn("space-y-5", className)}>
       <CardHeader>
         <CardTitle className={cn(Typography.h3, "text-center")}>
-          Adicionar funcionário
+          Adicionar operador
         </CardTitle>
       </CardHeader>
       <CardContent>

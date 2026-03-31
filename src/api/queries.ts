@@ -26,8 +26,6 @@ export async function getProducts(): Promise<Product[] | ApplicationException> {
     return {
       id: p.id,
       name: p.nome,
-      description: p.descricao,
-      location: p.localizacao,
       productCode: p.codigo_produto,
     };
   };

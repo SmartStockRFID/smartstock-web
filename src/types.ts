@@ -15,16 +15,12 @@ export interface Product {
   id: number;
   name: string;
   productCode: string;
-  description: string;
-  location: string;
 }
 
 export interface GetProductDTO {
   id: number;
   nome: string;
   codigo_produto: string;
-  descricao: string;
-  localizacao: string;
 }
 
 export interface CreateProductDTO {
@@ -34,7 +30,7 @@ export interface CreateProductDTO {
   localizacao: string;
 }
 
-export interface UpdateProductDTO extends CreateProductDTO {}
+export type UpdateProductDTO = Omit<GetProductDTO, "id">;
 
 /* -------------------------------- INVENTORY ------------------------------- */
 

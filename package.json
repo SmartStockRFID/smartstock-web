@@ -1,10 +1,11 @@
 {
-  "name": "ssrfid-front",
+  "name": "smartstock-web",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "check:types": "tsc --noEmit --pretty",
     "lint": "biome check",
     "lint:fix": "biome check --write",
     "prepare": "husky"

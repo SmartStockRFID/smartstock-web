@@ -31,7 +31,7 @@ export function InventoriesCards({
   return (
     <>
       <InventoriesListCard
-        className="w-full md:w-1/2"
+        className={cn("w-full md:w-1/2", inventories.length === 0 && "h-fit")}
         inventories={inventories}
         selectedInventory={selectedInventory}
         setSelectedInventory={setSelectedInventory}

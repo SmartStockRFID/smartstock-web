@@ -1,5 +1,5 @@
 {
-  // Auto fix with ESLint on save
+  // Auto fix with Biome on save
   "editor.codeActionsOnSave": {
     "source.addMissingImports": "explicit",
     "source.fixAll.biome": "always",

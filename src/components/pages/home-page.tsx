@@ -14,7 +14,7 @@ import { ErrorWidget, LoadingWidget } from "./_components";
 
 const PageTabs = {
   inventories: "Inventários",
-  employees: "Funcionários",
+  employees: "Operadores",
 };
 
 export function HomePage({
@@ -42,16 +42,10 @@ export function HomePage({
         className="items-center w-full"
       >
         <TabsList className="w-full max-w-2xl border-2">
-          <TabsTrigger
-            value={PageTabs.inventories}
-            disabled={inventoriesReq.status !== RequestStatus.SUCCESS}
-          >
+          <TabsTrigger value={PageTabs.inventories}>
             {PageTabs.inventories}
           </TabsTrigger>
-          <TabsTrigger
-            value={PageTabs.employees}
-            disabled={employeesReq.status !== RequestStatus.SUCCESS}
-          >
+          <TabsTrigger value={PageTabs.employees}>
             {PageTabs.employees}
           </TabsTrigger>
         </TabsList>
@@ -71,16 +65,24 @@ export function HomePage({
             />
           )}
         </TabsContent>
-        <TabsContent value={PageTabs.employees} className="flex w-full gap-4">
+        <TabsContent
+          value={PageTabs.employees}
+          className={cn(
+            inventoriesReq.status === RequestStatus.SUCCESS &&
+              "flex max-sm:flex-col w-full gap-4",
+          )}
+        >
           {employeesReq.status === RequestStatus.PENDING && <LoadingWidget />}
           {employeesReq.status === RequestStatus.ERROR && <ErrorWidget />}
           {employeesReq.status === RequestStatus.SUCCESS && (
-            <EmployeesCard
-              emplooyees={employeesReq.data ?? []}
-              className="w-full sm:1/2"
-            />
+            <>
+              <EmployeesCard
+                emplooyees={employeesReq.data ?? []}
+                className="w-full sm:1/2"
+              />
+              <EmployeeForm className="sm:w-1/2 h-fit" />
+            </>
           )}
-          <EmployeeForm className="hidden sm:block sm:w-1/2 h-fit" />
         </TabsContent>
       </Tabs>
     </main>

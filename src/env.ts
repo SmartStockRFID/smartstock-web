@@ -1,6 +1,6 @@
 import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
-import { removeSlahAtEndOfUrl } from "@/utils";
+import { removeSlahAtEndOfUrl } from "./utils";
 
 export const env = createEnv({
   server: {

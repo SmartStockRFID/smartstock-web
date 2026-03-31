@@ -67,7 +67,13 @@ export function AppNavbar() {
           )}
 
           <h1 className={cn(Typography.h1, "text-lg hidden sm:block")}>
-            <span className="hidden sm:inline">Sistema </span>SSRFID
+            {newlandTheme ? (
+              <>
+                <span className="hidden sm:inline">Sistema </span>SSRFID
+              </>
+            ) : (
+              "Smart Stock"
+            )}
           </h1>
         </Link>
         <div className="hidden space-x-4 sm:flex">
