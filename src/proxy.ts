@@ -1,5 +1,5 @@
 import type { NextRequest } from "next/server";
-import { TokenCookiesKeys } from "@/api/cookies";
+import { TokenCookiesKeys } from "@/api/config/cookies";
 import { AppRoutes } from "./constants";
 
 export function proxy(request: NextRequest) {

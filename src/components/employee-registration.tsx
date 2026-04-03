@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import type { ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
-import { createEmployee } from "@/api/mutations";
+import { createEmployee } from "@/api/actions";
 import { useMakeModalResponsive } from "@/hooks/use-make-modal-responsive";
 import type { CreateEmployeeDTO } from "@/types";
 import { cn } from "@/utils";

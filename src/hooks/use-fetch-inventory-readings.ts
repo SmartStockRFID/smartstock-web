@@ -1,6 +1,7 @@
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { getInventoryReadings } from "@/api/queries";
+import { logger } from "@/logger";
 import {
   type InventoryReading,
   type InventorySummary,
@@ -93,27 +94,27 @@ export function useFetchInventoryReadings(
       fetchInfo.current = { inventoryId: null, isFetching: false };
     }
 
-    console.debug("INVENTÁRIO SELECIONADO: ", selectedInventory?.id);
+    logger.debug(`INVENTÁRIO SELECIONADO: ${selectedInventory?.id}`);
 
     if (selectedInventory === null) {
-      console.debug(
+      logger.debug(
         "NENHUM INVENTÁRIO SELECIONADO: { abort? NAO. initFetch? NAO }",
       );
       return;
     } else if (selectedInventory.id === currentFetchedId) {
-      console.debug("DADOS JA SALVOS EM MEMORIA: { abort? SIM. initFech? NAO}");
+      logger.debug("DADOS JA SALVOS EM MEMORIA: { abort? SIM. initFech? NAO}");
       abortFetch();
       return;
     } else if (
       fetchInfo.current.isFetching &&
       fetchInfo.current.inventoryId === selectedInventory.id
     ) {
-      console.debug(
+      logger.debug(
         "BUSCANDO O INVENTARIO ATUAL: { abort? NAO. initFetch? NAO }",
       );
       return;
     } else {
-      console.debug("BUSCANDO OUTRO INVENTARIO: abort? SIM. initFetch? SIM");
+      logger.debug("BUSCANDO OUTRO INVENTARIO: abort? SIM. initFetch? SIM");
       abortFetch();
       attemptFetch(selectedInventory.id);
     }

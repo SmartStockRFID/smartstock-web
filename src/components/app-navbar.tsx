@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { logoutAction } from "@/api/mutations";
+import { logoutAction } from "@/api/actions";
 import { AppRoutes, Assets, newlandTheme } from "@/constants";
 import { cn } from "@/utils";
 import {

@@ -1,7 +1,6 @@
 import { Origami } from "lucide-react";
 import { Kodchasan } from "next/font/google";
 import Image from "next/image";
-import Link from "next/link";
 import { LoginForm } from "@/components/login-form";
 import { Assets, newlandTheme } from "@/constants";
 import { cn } from "@/utils";
@@ -15,8 +14,7 @@ export function LoginPage() {
   return (
     <div className="flex flex-col items-center justify-center gap-6 p-2 sm:p-6 bg-muted min-h-svh md:p-10">
       <div className="flex flex-col w-full max-w-sm gap-6">
-        <Link
-          href="#"
+        <div
           className={cn(
             "flex items-center self-center gap-2 font-medium",
             !newlandTheme && kodchasan.className,
@@ -36,7 +34,7 @@ export function LoginPage() {
             <Origami size={18} className="text-black dark:text-white" />
           )}
           {newlandTheme ? "GRUPO NEW" : "SmartStock"}
-        </Link>
+        </div>
         <LoginForm />
       </div>
     </div>

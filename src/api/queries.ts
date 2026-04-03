@@ -1,6 +1,3 @@
-"use server";
-
-import type { ApplicationException } from "@/exceptions";
 import type {
   Employee,
   GetAllInventoryDTO,
@@ -10,14 +7,21 @@ import type {
   Product,
   ReadingDTO,
 } from "@/types";
-import { apiClient } from "./api-client";
+import { ApiEndpoints } from "./config/endpoints";
+import { frontendFetch } from "./config/frontend-fetch";
+import { safeRequest } from "./config/safe-request";
 
-export async function getProducts(): Promise<Product[] | ApplicationException> {
-  const endpoint = "/pecas/";
-  const res = await apiClient(endpoint);
+export async function getProducts(): Promise<Product[]> {
+  const endpoint = ApiEndpoints.product.getAll();
 
+  const req = () =>
+    frontendFetch(endpoint.url, {
+      method: endpoint.method,
+    });
+
+  const res = await safeRequest(req);
   if (!(res instanceof Response)) {
-    return res;
+    throw res;
   }
 
   const body: GetProductDTO[] = await res.json();
@@ -33,14 +37,14 @@ export async function getProducts(): Promise<Product[] | ApplicationException> {
   return body.map(parse);
 }
 
-export async function getInventories(): Promise<
-  InventorySummary[] | ApplicationException
-> {
-  const endpoint = "/conferencia";
-  const res = await apiClient(endpoint);
+export async function getInventories(): Promise<InventorySummary[]> {
+  const endpoint = ApiEndpoints.inventory.getAll();
+
+  const req = () => frontendFetch(endpoint.url, { method: endpoint.method });
+  const res = await safeRequest(req);
 
   if (!(res instanceof Response)) {
-    return res;
+    throw res;
   }
 
   const body: GetAllInventoryDTO[] = await res.json();
@@ -58,12 +62,14 @@ export async function getInventories(): Promise<
 
 export async function getInventoryReadings(
   id: number,
-): Promise<InventoryReading[] | ApplicationException> {
+): Promise<InventoryReading[]> {
   const endpoint = `/conferencia/${id}/leituras?limit=50&offset=0`;
-  const res = await apiClient(endpoint);
+  const req = () => frontendFetch(endpoint, {});
+
+  const res = await safeRequest(req);
 
   if (!(res instanceof Response)) {
-    return res;
+    throw res;
   }
 
   const body: { items: ReadingDTO[] } = await res.json();
@@ -75,19 +81,16 @@ export async function getInventoryReadings(
     quantity: read.quantidade,
   });
 
-  console.log(body);
-
   return body.items.map(parse);
 }
 
-export async function getEmployees(): Promise<
-  Employee[] | ApplicationException
-> {
+export async function getEmployees(): Promise<Employee[]> {
   const endpoint = "/usuarios";
-  const res = await apiClient(endpoint);
+  const req = () => frontendFetch(endpoint, {});
+  const res = await safeRequest(req);
 
   if (!(res instanceof Response)) {
-    return res;
+    throw res;
   }
 
   const body: Employee[] = await res.json();
@@ -95,20 +98,18 @@ export async function getEmployees(): Promise<
   return body.toReversed();
 }
 
-export async function getInventoriePdf(inventoryId: number) {
+export async function getInventoriePdf(inventoryId: number): Promise<Blob> {
   const endpoint = `/relatorios/pdf/?conferencia_id=${inventoryId}`;
 
-  const res = await apiClient(endpoint, {
+  const res = await frontendFetch(endpoint, {
     headers: {
       "Content-Type": "application/pdf",
     },
   });
 
   if (!(res instanceof Response)) {
-    return res;
+    throw res;
   }
 
-  const body = await res.blob();
-
-  return body;
+  return await res.blob();
 }

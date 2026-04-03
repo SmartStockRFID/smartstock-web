@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { toast } from "sonner";
-import { deactivateEmployee } from "@/api/mutations";
+import { deactivateEmployee } from "@/api/actions";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
