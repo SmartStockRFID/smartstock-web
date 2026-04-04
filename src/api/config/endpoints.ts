@@ -17,7 +17,7 @@ export const ApiEndpoints = {
     refresh: () => ({ url: "/auth/refresh", method: "POST" }),
   },
   product: {
-    getAll: () => ({ url: "/pecas", method: "GET" }),
+    getAll: () => ({ url: "/produtos", method: "GET" }),
   },
   inventory: {
     getAll: () => ({ url: "/conferencia", method: "GET" }),

@@ -40,7 +40,10 @@ export async function getProducts(): Promise<Product[]> {
 export async function getInventories(): Promise<InventorySummary[]> {
   const endpoint = ApiEndpoints.inventory.getAll();
 
-  const req = () => frontendFetch(endpoint.url, { method: endpoint.method });
+  const queryParams = new URLSearchParams({ descending: "true" });
+  const path = `${endpoint.url}?${queryParams.toString()}`;
+
+  const req = () => frontendFetch(path, { method: endpoint.method });
   const res = await safeRequest(req);
 
   if (!(res instanceof Response)) {
