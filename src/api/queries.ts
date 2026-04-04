@@ -57,7 +57,7 @@ export async function getInventories(): Promise<InventorySummary[]> {
     };
   };
 
-  return body.map(parse).toReversed();
+  return body.map(parse);
 }
 
 export async function getInventoryReadings(

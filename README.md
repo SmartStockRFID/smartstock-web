@@ -94,6 +94,7 @@
   Na continuidade do projeto, esses poderiam ser os próximos passos:
 
   - Paginação na listagem de Inventários
+  - Melhorar validação e feedback de erro dos formuláŕios
   - Expandir/enriquecer relatórios dos Inventários
   - Adicionar gráficos com informações sobre os Inventários em sua listagem
   - Alterar o back pra retornar a data/hora do inventario no GetAll _(em caso de demora)_

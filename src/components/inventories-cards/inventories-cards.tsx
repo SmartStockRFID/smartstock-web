@@ -7,26 +7,17 @@ import { Badge } from "../ui/badge";
 import { InventoriesListCard } from "./inventories-list";
 import { InventoryDetailCard } from "./inventory-detail-card";
 
-interface Props {
-  inventories: InventorySummary[];
-  className?: string;
-  selectedInventory: string | string[] | null;
-}
-
 export function InventoriesCards({
   inventories,
-  selectedInventory: renderSelectedInventory,
-}: Props) {
+}: {
+  inventories: InventorySummary[];
+}) {
   const {
     selectedInventory,
     setSelectedInventory,
-    inventoryReadings: inventoryDetails,
+    inventoryReadings,
     requestStatus,
-    fetchedInventoryId,
-  } = useFetchInventoryReadings(
-    inventories,
-    renderSelectedInventory?.toString() ?? null,
-  );
+  } = useFetchInventoryReadings();
 
   return (
     <>
@@ -40,12 +31,11 @@ export function InventoriesCards({
         mostRecentInventoryId={
           inventories.length > 0 ? (inventories.at(0)?.id ?? null) : null
         }
-        fetchedInventoryId={fetchedInventoryId}
         className="hidden md:flex md:w-1/2"
         hasInventories={inventories.length > 0}
         selectedInventory={selectedInventory}
         setSelectedInventory={setSelectedInventory}
-        inventoryReadings={inventoryDetails}
+        inventoryReadings={inventoryReadings}
         fetchDetailReqStatus={requestStatus}
       />
     </>

@@ -2,13 +2,7 @@ export interface APIErrorDTO {
   detail: string;
 }
 
-export enum RequestStatus {
-  IDLE,
-  PENDING,
-  ERROR,
-  SUCCESS,
-}
-
+export type ReactQueryRequestStatus = "pending" | "success" | "error";
 /* --------------------------------- PRODUCT -------------------------------- */
 
 export interface Product {

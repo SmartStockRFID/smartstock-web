@@ -1,9 +1,8 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getEmployees, getInventories } from "@/api/queries";
-import { useFetchData } from "@/hooks/use-fetch-data";
-import { RequestStatus } from "@/types";
 import { cn } from "@/utils";
 import { EmployeeForm } from "../employee-registration";
 import { EmployeesCard } from "../employees-card";
@@ -17,13 +16,15 @@ const PageTabs = {
   employees: "Operadores",
 };
 
-export function HomePage({
-  selectedInventory,
-}: {
-  selectedInventory: string | string[] | null;
-}) {
-  const inventoriesReq = useFetchData(getInventories);
-  const employeesReq = useFetchData(getEmployees);
+export function HomePage() {
+  const inventoriesReq = useQuery({
+    queryKey: ["inventories"],
+    queryFn: getInventories,
+  });
+  const employeesReq = useQuery({
+    queryKey: ["employees"],
+    queryFn: getEmployees,
+  });
 
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -52,29 +53,25 @@ export function HomePage({
         <TabsContent
           value={PageTabs.inventories}
           className={cn(
-            inventoriesReq.status === RequestStatus.SUCCESS &&
-              "flex w-full gap-4",
+            inventoriesReq.status === "success" && "flex w-full gap-4",
           )}
         >
-          {inventoriesReq.status === RequestStatus.PENDING && <LoadingWidget />}
-          {inventoriesReq.status === RequestStatus.ERROR && <ErrorWidget />}
-          {inventoriesReq.status === RequestStatus.SUCCESS && (
-            <InventoriesCards
-              selectedInventory={selectedInventory}
-              inventories={inventoriesReq.data ?? []}
-            />
+          {inventoriesReq.status === "pending" && <LoadingWidget />}
+          {inventoriesReq.status === "error" && <ErrorWidget />}
+          {inventoriesReq.status === "success" && (
+            <InventoriesCards inventories={inventoriesReq.data} />
           )}
         </TabsContent>
         <TabsContent
           value={PageTabs.employees}
           className={cn(
-            inventoriesReq.status === RequestStatus.SUCCESS &&
+            inventoriesReq.status === "success" &&
               "flex max-sm:flex-col w-full gap-4",
           )}
         >
-          {employeesReq.status === RequestStatus.PENDING && <LoadingWidget />}
-          {employeesReq.status === RequestStatus.ERROR && <ErrorWidget />}
-          {employeesReq.status === RequestStatus.SUCCESS && (
+          {employeesReq.status === "pending" && <LoadingWidget />}
+          {employeesReq.status === "error" && <ErrorWidget />}
+          {employeesReq.status === "success" && (
             <>
               <EmployeesCard
                 emplooyees={employeesReq.data ?? []}

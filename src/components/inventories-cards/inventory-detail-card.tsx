@@ -10,10 +10,10 @@ import {
 import { toast } from "sonner";
 import { getInventoriePdf } from "@/api/queries";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import {
-  type InventoryReading,
-  type InventorySummary,
-  RequestStatus,
+import type {
+  InventoryReading,
+  InventorySummary,
+  ReactQueryRequestStatus,
 } from "@/types";
 import { cn } from "@/utils";
 import CancelInventoryDialog from "../dialogs/cancel-inventory";
@@ -51,8 +51,7 @@ interface Props {
   setSelectedInventory: (inventory: InventorySummary | null) => void;
   inventoryReadings: InventoryReading[] | null;
   hasInventories: boolean;
-  fetchDetailReqStatus: RequestStatus;
-  fetchedInventoryId: number;
+  fetchDetailReqStatus: ReactQueryRequestStatus;
   mostRecentInventoryId: number | null;
 }
 
@@ -231,13 +230,13 @@ function InventoryDetailContent(props: Omit<Props, "className">) {
             </p>
           </div>
 
-          {props.fetchDetailReqStatus === RequestStatus.PENDING && (
+          {props.fetchDetailReqStatus === "pending" && (
             <Alert>
               <Loader className="h-4 w-4 animate-spin" />
               <AlertTitle>Buscando dados no servidor</AlertTitle>
             </Alert>
           )}
-          {props.fetchDetailReqStatus === RequestStatus.ERROR && (
+          {props.fetchDetailReqStatus === "error" && (
             <Alert variant="destructive">
               <AlertCircleIcon />
               <AlertTitle>Erro ao buscar dados do servidor.</AlertTitle>
@@ -246,40 +245,39 @@ function InventoryDetailContent(props: Omit<Props, "className">) {
               </AlertDescription>
             </Alert>
           )}
-          {props.selectedInventory.id === props.fetchedInventoryId &&
-            props.inventoryReadings !== null && (
-              <div className="space-y-2">
-                {props.inventoryReadings.length === 0 && (
-                  <Alert>
+          {props.inventoryReadings !== null && (
+            <div className="space-y-2">
+              {props.inventoryReadings.length === 0 && (
+                <Alert>
+                  <Tag />
+                  <AlertTitle>
+                    Nenhum produto lido no inventário
+                    <span
+                      className={cn(
+                        "max-sm:hidden",
+                        props.selectedInventory.status !== "iniciada" &&
+                          "hidden",
+                      )}
+                    >
+                      {" "}
+                      até o momento
+                    </span>
+                    .
+                  </AlertTitle>
+                </Alert>
+              )}
+
+              {props.inventoryReadings.length > 0 &&
+                props.inventoryReadings.map((read) => (
+                  <Alert key={read.id}>
                     <Tag />
                     <AlertTitle>
-                      Nenhum produto lido no inventário
-                      <span
-                        className={cn(
-                          "max-sm:hidden",
-                          props.selectedInventory.status !== "iniciada" &&
-                            "hidden",
-                        )}
-                      >
-                        {" "}
-                        até o momento
-                      </span>
-                      .
+                      {read.quantity} produtos {read.productCode} lidos
                     </AlertTitle>
                   </Alert>
-                )}
-
-                {props.inventoryReadings.length > 0 &&
-                  props.inventoryReadings.map((read) => (
-                    <Alert key={read.id}>
-                      <Tag />
-                      <AlertTitle>
-                        {read.quantity} produtos {read.productCode} lidos
-                      </AlertTitle>
-                    </Alert>
-                  ))}
-              </div>
-            )}
+                ))}
+            </div>
+          )}
         </div>
       )}
     </>
