@@ -67,21 +67,19 @@
 
   Ou, para subir o container do projeto localmente, utilize um dos comandos abaixo:
 
+```bash
+# Subir os serviços
+docker compose -f local.yml up
+
+# Subir e forçar reconstrução das imagens
+docker compose -f local.yml up --build
+```
+
+  Para parar e remover os containers:
+
   ```bash
-  # Subir os serviços definidos no arquivo local.yml
-  docker compose -f compose.dev.yaml up
-
-  # Subir os serviços e forçar a reconstrução das imagens
-  docker compose -f compose.dev.yaml up --build
+  docker compose -f local.yml down
   ```
-
-  Para derrubar (parar e remover) os containers:
-
-  ```bash
-  docker compose -f compose.dev.yaml down
-  ```
-
-
 
   Abra [http://localhost:3000](http://localhost:3000) no seu navegador para ver o resultado. A página será atualizada automaticamente conforme você edita os arquivos.
 
@@ -99,9 +97,10 @@
   - Melhorar validação e feedback de erro dos formuláŕios
   - Expandir/enriquecer relatórios dos Inventários
   - Adicionar gráficos com informações sobre os Inventários em sua listagem
-  - Alterar o back pra retornar a data/hora do inventario no GetAll _(em caso de demora)_
+  - Alterar o back pra retornar a data/hora do inventario no GetAll
   - Adicionar cobertura de testes
   - Completar CRUD no módulo de Produtos* _(lembrando que é um módulo temporário)_
+  - (Bug) Verificar se o fluxo de rotação de tokens está funcional
 
 ## 📄 Licença
 

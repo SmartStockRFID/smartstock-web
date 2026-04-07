@@ -22,7 +22,7 @@ export function useFetchInventoryReadings(): UseReadingsReturn {
     enabled: !!selectedInventory,
     queryFn: () =>
       selectedInventory ? getInventoryReadings(selectedInventory.id) : [],
-    queryKey: ["inventories", "readings"],
+    queryKey: ["inventories", "readings", selectedInventory?.id],
   });
 
   return {

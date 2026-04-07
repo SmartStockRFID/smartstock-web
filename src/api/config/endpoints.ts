@@ -20,8 +20,8 @@ export const ApiEndpoints = {
     getAll: () => ({ url: "/produtos", method: "GET" }),
   },
   inventory: {
-    getAll: () => ({ url: "/conferencia", method: "GET" }),
-    close: (id) => ({ url: `/conferencia/${id}/encerrar`, method: "PUT" }),
-    reopen: (id) => ({ url: `/conferencia/${id}/reabrir`, method: "PUT" }),
+    getAll: () => ({ url: "/inventarios", method: "GET" }),
+    close: (id) => ({ url: `/inventarios/${id}/encerrar`, method: "PUT" }),
+    reopen: (id) => ({ url: `/inventarios/${id}/reabrir`, method: "PUT" }),
   },
 } as const satisfies EndpointsDefinition;

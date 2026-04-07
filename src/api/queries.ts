@@ -66,7 +66,7 @@ export async function getInventories(): Promise<InventorySummary[]> {
 export async function getInventoryReadings(
   id: number,
 ): Promise<InventoryReading[]> {
-  const endpoint = `/conferencia/${id}/leituras?limit=50&offset=0`;
+  const endpoint = `/inventarios/${id}/leituras?limit=50&offset=0`;
   const req = () => frontendFetch(endpoint, {});
 
   const res = await safeRequest(req);
@@ -102,7 +102,7 @@ export async function getEmployees(): Promise<Employee[]> {
 }
 
 export async function getInventoriePdf(inventoryId: number): Promise<Blob> {
-  const endpoint = `/relatorios/pdf/?conferencia_id=${inventoryId}`;
+  const endpoint = `/relatorios/pdf/?inventario_id=${inventoryId}`;
 
   const res = await frontendFetch(endpoint, {
     headers: {

@@ -101,6 +101,7 @@ Moving forward with the project, these could be the next steps:
   - Modify the backend to return the inventory date/time in the GetAll request *(in case of delays)*
   - Add test coverage
   - Complete the CRUD in the Products module\* *(keeping in mind it is a temporary module)*
+  - (Bug) Verify if token refresh flow is working
 
 ## 📄 License
 

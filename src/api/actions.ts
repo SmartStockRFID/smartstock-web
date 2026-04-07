@@ -108,7 +108,7 @@ export async function deactivateEmployee(
 export async function cancelInventory(
   inventoryId: number,
 ): Promise<InventorySummary> {
-  const endpoint = `/conferencia/${inventoryId}/cancelar`;
+  const endpoint = `/inventarios/${inventoryId}/cancelar`;
   const req = () =>
     backendFetch(endpoint, {
       method: "PUT",
