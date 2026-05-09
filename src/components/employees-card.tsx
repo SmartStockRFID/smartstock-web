@@ -26,12 +26,12 @@ export function EmployeesCard({
             {emplooyees.map((e) => (
               <li
                 key={e.username}
-                className="flex items-center justify-between p-3 bg-gray-100 border rounded-lg"
+                className="flex items-center justify-between rounded-lg border bg-gray-100 p-3"
               >
                 <div className="flex items-center gap-2">
                   <UserCircle />
                   <p className="flex flex-col">
-                    <span className="text-sm font-semibold">Funcionário</span>
+                    <span className="font-semibold text-sm">Funcionário</span>
                     <span>{e.username}</span>
                   </p>
                 </div>

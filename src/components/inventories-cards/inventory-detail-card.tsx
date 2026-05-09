@@ -92,10 +92,10 @@ export function InventoryDetailCard(props: Props) {
     return (
       <Card className={cn("h-fit", props.className)}>
         <CardHeader>
-          <CardTitle className={cn("text-center relative", Typography.h3)}>
+          <CardTitle className={cn("relative text-center", Typography.h3)}>
             Detalhes do inventário {props.selectedInventory?.id ?? ""}
             {props.selectedInventory !== null && (
-              <div className="absolute left-0 bottom-1">
+              <div className="absolute bottom-1 left-0">
                 <InventoryStatusBadge status={props.selectedInventory.status} />
               </div>
             )}
@@ -148,7 +148,7 @@ export function InventoryDetailCard(props: Props) {
     >
       <DrawerContent>
         <DrawerHeader className="relative">
-          <DrawerTitle className={cn("text-center relative", Typography.h3)}>
+          <DrawerTitle className={cn("relative text-center", Typography.h3)}>
             Inventário nº {props.selectedInventory?.id}
           </DrawerTitle>
           {props.selectedInventory !== null && (
@@ -209,7 +209,7 @@ function InventoryDetailContent(props: Omit<Props, "className">) {
             </EmptyMedia>
             <EmptyTitle>Sem inventários</EmptyTitle>
             <EmptyDescription>
-              Nenhum inventário realizado com a pistola ainda.
+              Nenhum inventário realizado com o leitor ainda.
             </EmptyDescription>
           </EmptyHeader>
         </Empty>
@@ -228,7 +228,7 @@ function InventoryDetailContent(props: Omit<Props, "className">) {
       {props.hasInventories && props.selectedInventory && (
         <div className="space-y-6">
           <div className="space-y-2">
-            <p className="md:hidden flex items-center gap-1">
+            <p className="flex items-center gap-1 md:hidden">
               <span className="text-muted-foreground">
                 Status do inventário:
               </span>
@@ -242,7 +242,7 @@ function InventoryDetailContent(props: Omit<Props, "className">) {
             </p>
             {props.selectedInventory.status !== "iniciada" && (
               <p>
-                <span className="text-muted-foreground mr-5">
+                <span className="mr-5 text-muted-foreground">
                   Horário de fim:
                 </span>
                 {formatDate(props.selectedInventory.createdAt)}

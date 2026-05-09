@@ -75,9 +75,9 @@ export function ProductRegistration({ className }: ClassNameProp) {
   };
 
   return (
-    <Card className={cn("space-y-5 h-fit", className)}>
+    <Card className={cn("h-fit space-y-5", className)}>
       <CardHeader>
-        <CardTitle className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+        <CardTitle className="font-semibold text-2xl text-gray-900 dark:text-gray-50">
           Cadastrar Produto
         </CardTitle>
         <CardDescription className="text-gray-600 dark:text-gray-200">
@@ -87,7 +87,7 @@ export function ProductRegistration({ className }: ClassNameProp) {
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="nome" className="text-sm font-medium">
+            <Label htmlFor="nome" className="font-medium text-sm">
               Nome do Produto *
             </Label>
             <Input
@@ -97,12 +97,12 @@ export function ProductRegistration({ className }: ClassNameProp) {
               onChange={(e) => handleInputChange("nome", e.target.value)}
               placeholder="Ex: Parafuso M8x20"
               required
-              className="bg-input border-border"
+              className="border-border bg-input"
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="codigo_produto" className="text-sm font-medium">
+            <Label htmlFor="codigo_produto" className="font-medium text-sm">
               Código do Produto *
             </Label>
             <Input
@@ -114,17 +114,17 @@ export function ProductRegistration({ className }: ClassNameProp) {
               }
               placeholder="Ex: PAR-M8-20"
               required
-              className="bg-input border-border"
+              className="border-border bg-input"
             />
           </div>
           <Button
             type="submit"
-            className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+            className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
             disabled={isLoading}
           >
             {isLoading ? (
               <>
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Cadastrando...
               </>
             ) : (

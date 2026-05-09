@@ -27,16 +27,16 @@ export function ProductList({
 
   return (
     <Card className={className}>
-      <CardHeader className="flex justify-between items-center">
+      <CardHeader className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10">
-            <Package2 className="w-6 h-6 text-primary" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+            <Package2 className="h-6 w-6 text-primary" />
           </div>
           <div>
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
+            <h2 className="font-semibold text-2xl text-gray-900 dark:text-gray-50">
               Produtos
             </h2>
-            <p className="text-gray-600 dark:text-gray-200 hidden sm:block">
+            <p className="hidden text-gray-600 sm:block dark:text-gray-200">
               Lista de produtos no inventário RFID
             </p>
           </div>
@@ -45,18 +45,18 @@ export function ProductList({
 
       <CardContent className="space-y-8">
         <div className="space-y-2">
-          <Label htmlFor="search" className="text-sm font-medium">
+          <Label htmlFor="search" className="font-medium text-sm">
             Buscar produtos
           </Label>
           <div className="relative">
-            <Search className="absolute w-4 h-4 transform -translate-y-1/2 left-3 top-1/2 text-muted-foreground" />
+            <Search className="-translate-y-1/2 absolute top-1/2 left-3 h-4 w-4 transform text-muted-foreground" />
             <Input
               id="search"
               type="text"
               placeholder="Buscar por nome ou código..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 bg-input border-border"
+              className="border-border bg-input pl-10"
             />
           </div>
         </div>
@@ -68,11 +68,11 @@ export function ProductList({
                 : "Nenhum produto cadastrado"}
             </div>
           ) : (
-            <div className="space-y-4 overflow-y-auto max-h-[70vh]">
+            <div className="max-h-[70vh] space-y-4 overflow-y-auto">
               {filteredProducts.map((product) => (
                 <div
                   key={product.id}
-                  className="p-4 border rounded-lg border-border bg-muted/30 flex items-start justify-between mb-2"
+                  className="mb-2 flex items-start justify-between rounded-lg border border-border bg-muted/30 p-4"
                 >
                   <h3 className="font-semibold text-card-foreground">
                     {product.name}

@@ -30,7 +30,7 @@ export function HomePage() {
   const router = useRouter();
   const currentTab = searchParams.get("current_tab") ?? PageTabs.inventories;
   return (
-    <main className="flex-1 w-full max-w-7xl mx-auto max-sm:px-1 sm:flex-row pt-8 gap-8 *:gap-4 pb-2 px-1">
+    <main className="mx-auto w-full max-w-7xl flex-1 gap-8 px-1 pt-8 pb-2 *:gap-4 max-sm:px-1 sm:flex-row">
       <Toaster />
       <Tabs
         value={currentTab}
@@ -40,9 +40,9 @@ export function HomePage() {
 
           router.replace(`/?${params.toString()}`, { scroll: false });
         }}
-        className="items-center w-full"
+        className="w-full items-center"
       >
-        <TabsList className="w-full max-w-2xl border-2 ">
+        <TabsList className="w-full max-w-2xl border-2">
           <TabsTrigger value={PageTabs.inventories}>
             {PageTabs.inventories}
           </TabsTrigger>
@@ -66,7 +66,7 @@ export function HomePage() {
           value={PageTabs.employees}
           className={cn(
             inventoriesReq.status === "success" &&
-              "flex max-sm:flex-col w-full gap-4",
+              "flex w-full gap-4 max-sm:flex-col",
           )}
         >
           {employeesReq.status === "pending" && <LoadingWidget />}
@@ -75,9 +75,9 @@ export function HomePage() {
             <>
               <EmployeesCard
                 emplooyees={employeesReq.data ?? []}
-                className="w-full sm:1/2"
+                className="sm:1/2 w-full"
               />
-              <EmployeeForm className="sm:w-1/2 h-fit" />
+              <EmployeeForm className="h-fit sm:w-1/2" />
             </>
           )}
         </TabsContent>

@@ -122,7 +122,7 @@ export function LoginForm({
                     {isSubmitting ? "Entrando..." : "Entrar"}
                   </span>
                 </Button>
-                <div className="text-center text-sm text-muted-foreground dark:text-gray-200">
+                <div className="text-center text-muted-foreground text-sm dark:text-gray-200">
                   Não tem uma conta?
                   <p>
                     Por favor, entre em{" "}
