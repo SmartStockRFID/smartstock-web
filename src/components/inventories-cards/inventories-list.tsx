@@ -28,9 +28,9 @@ export function InventoriesListCard(props: Props) {
         </CardTitle>
       </CardHeader>
 
-      <div className="px-3 sm:px-6">
+      <div className="px-3 sm:px-6 overflow-y-auto max-h-[70vh]">
         {props.inventories.length > 0 ? (
-          <ul className="space-y-3 sm:space-y-4">
+          <ul className="space-y-3 sm:space-y-4 ">
             {props.inventories.map((inv) => (
               <li
                 key={inv.id}
@@ -70,27 +70,6 @@ export function InventoriesListCard(props: Props) {
             </EmptyHeader>
           </Empty>
         )}
-
-        {/* {props.inventories.length > 0 && (
-          <CardFooter className="px-0 mt-4">
-            <Pagination>
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink>1</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationEllipsis />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationNext />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
-          </CardFooter>
-        )} */}
       </div>
     </Card>
   );

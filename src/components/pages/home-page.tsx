@@ -30,7 +30,7 @@ export function HomePage() {
   const router = useRouter();
   const currentTab = searchParams.get("current_tab") ?? PageTabs.inventories;
   return (
-    <main className="flex-1 w-full max-w-7xl mx-auto max-sm:px-1 flex flex-col sm:flex-row pt-8 gap-8 *:gap-4 pb-2">
+    <main className="flex-1 w-full max-w-7xl mx-auto max-sm:px-1 sm:flex-row pt-8 gap-8 *:gap-4 pb-2 px-1">
       <Toaster />
       <Tabs
         value={currentTab}
@@ -42,7 +42,7 @@ export function HomePage() {
         }}
         className="items-center w-full"
       >
-        <TabsList className="w-full max-w-2xl border-2">
+        <TabsList className="w-full max-w-2xl border-2 ">
           <TabsTrigger value={PageTabs.inventories}>
             {PageTabs.inventories}
           </TabsTrigger>
@@ -53,7 +53,7 @@ export function HomePage() {
         <TabsContent
           value={PageTabs.inventories}
           className={cn(
-            inventoriesReq.status === "success" && "flex w-full gap-4",
+            inventoriesReq.status === "success" && "flex w-full gap-4 px-1",
           )}
         >
           {inventoriesReq.status === "pending" && <LoadingWidget />}

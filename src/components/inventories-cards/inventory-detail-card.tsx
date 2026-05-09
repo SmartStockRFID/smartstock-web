@@ -236,12 +236,12 @@ function InventoryDetailContent(props: Omit<Props, "className">) {
                 <InventoryStatusBadge status={props.selectedInventory.status} />
               )}
             </p>
-            <p className="hidden md:block">
+            <p>
               <span className="text-muted-foreground">Horário de início: </span>
               {formatDate(props.selectedInventory.createdAt)}
             </p>
             {props.selectedInventory.status !== "iniciada" && (
-              <p className="hidden md:block">
+              <p>
                 <span className="text-muted-foreground mr-5">
                   Horário de fim:
                 </span>
@@ -302,13 +302,13 @@ function InventoryDetailContent(props: Omit<Props, "className">) {
                       <Tag />
                       <AlertTitle>
                         {read.quantity} produto
-                        {props.inventoryReadings?.length !== 1 && "s"}{" "}
+                        {read.quantity !== 1 && "s"}{" "}
                         <strong>
                           {productsReq.data.find(
                             (p) => p.productCode === read.productCode,
                           )?.name ?? ""}
                         </strong>{" "}
-                        lido{props.inventoryReadings?.length !== 1 && "s"}
+                        lido{read.quantity !== 1 && "s"}
                       </AlertTitle>
                     </Alert>
                   ))}
