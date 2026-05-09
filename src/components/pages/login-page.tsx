@@ -12,16 +12,16 @@ const kodchasan = Kodchasan({
 
 export function LoginPage() {
   return (
-    <div className="flex flex-col items-center justify-center gap-6 p-2 sm:p-6 bg-muted min-h-svh md:p-10">
-      <div className="flex flex-col w-full max-w-sm gap-6">
+    <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-2 sm:p-6 md:p-10">
+      <div className="flex w-full max-w-sm flex-col gap-6">
         <div
           className={cn(
-            "flex items-center self-center gap-2 font-medium",
+            "flex items-center gap-2 self-center font-medium",
             !newlandTheme && kodchasan.className,
           )}
         >
           {newlandTheme ? (
-            <div className="relative flex items-center justify-center rounded-lg text-primary-foreground size-8">
+            <div className="relative flex size-8 items-center justify-center rounded-lg text-primary-foreground">
               <Image
                 className="dark:invert"
                 src={Assets.icons.newland}
