@@ -1,5 +1,5 @@
 import type { Route } from "next";
-import { env } from "./env/client";
+import { env } from "./env";
 
 interface AssetsDefinition {
   [key: string]: string | AssetsDefinition;
@@ -32,3 +32,8 @@ export const DEFAULT_HEADERS = {
 };
 
 export const newlandTheme: boolean = env.NEXT_PUBLIC_THEME_MODE === "newland";
+
+export const BACKEND_URL =
+  typeof window !== "undefined" ? "" : env.INTERNAL_SSRFID_API_URL;
+
+export const backendRedirectRoute = "/api/redirect";

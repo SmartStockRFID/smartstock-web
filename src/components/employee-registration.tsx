@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import type { ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
-import { createEmployee } from "@/api/mutations";
+import { createEmployee } from "@/api/actions";
 import { useMakeModalResponsive } from "@/hooks/use-make-modal-responsive";
 import type { CreateEmployeeDTO } from "@/types";
 import { cn } from "@/utils";
@@ -51,7 +51,7 @@ export function EmployeeForm({ className }: { className?: string }) {
     <Card className={cn("space-y-5", className)}>
       <CardHeader>
         <CardTitle className={cn(Typography.h3, "text-center")}>
-          Adicionar funcionário
+          Adicionar operador
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -67,7 +67,7 @@ export function EmployeeForm({ className }: { className?: string }) {
               Senha do funcionário
             </FieldLabel>
             <Input
-              type="password"
+              type="number"
               id={ids.employeePassword}
               required
               {...register("password")}
@@ -78,7 +78,7 @@ export function EmployeeForm({ className }: { className?: string }) {
               Confirme a senha do funcionário
             </FieldLabel>
             <Input
-              type="password"
+              type="number"
               id={ids.confirmPassword}
               required
               {...register("confirmPassword")}

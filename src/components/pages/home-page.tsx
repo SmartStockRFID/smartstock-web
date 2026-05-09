@@ -1,9 +1,8 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getEmployees, getInventories } from "@/api/queries";
-import { useFetchData } from "@/hooks/use-fetch-data";
-import { RequestStatus } from "@/types";
 import { cn } from "@/utils";
 import { EmployeeForm } from "../employee-registration";
 import { EmployeesCard } from "../employees-card";
@@ -14,22 +13,24 @@ import { ErrorWidget, LoadingWidget } from "./_components";
 
 const PageTabs = {
   inventories: "Inventários",
-  employees: "Funcionários",
+  employees: "Operadores",
 };
 
-export default function HomePage({
-  selectedInventory,
-}: {
-  selectedInventory: string | string[] | null;
-}) {
-  const inventoriesReq = useFetchData(getInventories);
-  const employeesReq = useFetchData(getEmployees);
+export function HomePage() {
+  const inventoriesReq = useQuery({
+    queryKey: ["inventories"],
+    queryFn: getInventories,
+  });
+  const employeesReq = useQuery({
+    queryKey: ["employees"],
+    queryFn: getEmployees,
+  });
 
   const searchParams = useSearchParams();
   const router = useRouter();
   const currentTab = searchParams.get("current_tab") ?? PageTabs.inventories;
   return (
-    <main className="flex-1 w-full max-w-7xl mx-auto max-sm:px-1 flex flex-col sm:flex-row pt-8 gap-8 *:gap-4 pb-2">
+    <main className="flex-1 w-full max-w-7xl mx-auto max-sm:px-1 sm:flex-row pt-8 gap-8 *:gap-4 pb-2 px-1">
       <Toaster />
       <Tabs
         value={currentTab}
@@ -41,46 +42,44 @@ export default function HomePage({
         }}
         className="items-center w-full"
       >
-        <TabsList className="w-full max-w-2xl border-2">
-          <TabsTrigger
-            value={PageTabs.inventories}
-            disabled={inventoriesReq.status !== RequestStatus.SUCCESS}
-          >
+        <TabsList className="w-full max-w-2xl border-2 ">
+          <TabsTrigger value={PageTabs.inventories}>
             {PageTabs.inventories}
           </TabsTrigger>
-          <TabsTrigger
-            value={PageTabs.employees}
-            disabled={employeesReq.status !== RequestStatus.SUCCESS}
-          >
+          <TabsTrigger value={PageTabs.employees}>
             {PageTabs.employees}
           </TabsTrigger>
         </TabsList>
         <TabsContent
           value={PageTabs.inventories}
           className={cn(
-            inventoriesReq.status === RequestStatus.SUCCESS &&
-              "flex w-full gap-4",
+            inventoriesReq.status === "success" && "flex w-full gap-4 px-1",
           )}
         >
-          {inventoriesReq.status === RequestStatus.PENDING && <LoadingWidget />}
-          {inventoriesReq.status === RequestStatus.ERROR && <ErrorWidget />}
-          {inventoriesReq.status === RequestStatus.SUCCESS && (
-            <InventoriesCards
-              selectedInventory={selectedInventory}
-              inventories={inventoriesReq.data ?? []}
-            />
+          {inventoriesReq.status === "pending" && <LoadingWidget />}
+          {inventoriesReq.status === "error" && <ErrorWidget />}
+          {inventoriesReq.status === "success" && (
+            <InventoriesCards inventories={inventoriesReq.data} />
           )}
         </TabsContent>
-        <TabsContent value={PageTabs.employees} className="flex w-full gap-4">
-          {employeesReq.status === RequestStatus.PENDING && <LoadingWidget />}
-          {employeesReq.status === RequestStatus.ERROR && <ErrorWidget />}
-          {employeesReq.status === RequestStatus.SUCCESS && (
-            <EmployeesCard
-              emplooyees={employeesReq.data ?? []}
-              className="w-full sm:1/2"
-            />
+        <TabsContent
+          value={PageTabs.employees}
+          className={cn(
+            inventoriesReq.status === "success" &&
+              "flex max-sm:flex-col w-full gap-4",
           )}
-          <EmployeeForm className="hidden sm:block sm:w-1/2 h-fit" />
+        >
+          {employeesReq.status === "pending" && <LoadingWidget />}
+          {employeesReq.status === "error" && <ErrorWidget />}
+          {employeesReq.status === "success" && (
+            <>
+              <EmployeesCard
+                emplooyees={employeesReq.data ?? []}
+                className="w-full sm:1/2"
+              />
+              <EmployeeForm className="sm:w-1/2 h-fit" />
+            </>
+          )}
         </TabsContent>
       </Tabs>
     </main>

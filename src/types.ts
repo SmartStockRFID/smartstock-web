@@ -2,29 +2,19 @@ export interface APIErrorDTO {
   detail: string;
 }
 
-export enum RequestStatus {
-  IDLE,
-  PENDING,
-  ERROR,
-  SUCCESS,
-}
-
+export type ReactQueryRequestStatus = "pending" | "success" | "error";
 /* --------------------------------- PRODUCT -------------------------------- */
 
 export interface Product {
   id: number;
   name: string;
   productCode: string;
-  description: string;
-  location: string;
 }
 
 export interface GetProductDTO {
   id: number;
   nome: string;
   codigo_produto: string;
-  descricao: string;
-  localizacao: string;
 }
 
 export interface CreateProductDTO {
@@ -34,7 +24,7 @@ export interface CreateProductDTO {
   localizacao: string;
 }
 
-export interface UpdateProductDTO extends CreateProductDTO {}
+export type UpdateProductDTO = Omit<GetProductDTO, "id">;
 
 /* -------------------------------- INVENTORY ------------------------------- */
 
@@ -44,12 +34,16 @@ export interface InventorySummary {
   id: number;
   status: InventoryStatus;
   employeeUsername: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface GetAllInventoryDTO {
   id: number;
   status: InventoryStatus;
   username_funcionario: string;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface InventoryReading {

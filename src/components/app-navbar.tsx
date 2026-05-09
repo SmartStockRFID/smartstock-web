@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { logoutAction } from "@/api/mutations";
+import { logoutAction } from "@/api/actions";
 import { AppRoutes, Assets, newlandTheme } from "@/constants";
 import { cn } from "@/utils";
 import {
@@ -67,7 +67,13 @@ export function AppNavbar() {
           )}
 
           <h1 className={cn(Typography.h1, "text-lg hidden sm:block")}>
-            <span className="hidden sm:inline">Sistema </span>SSRFID
+            {newlandTheme ? (
+              <>
+                <span className="hidden sm:inline">Sistema </span>SSRFID
+              </>
+            ) : (
+              "Smart Stock"
+            )}
           </h1>
         </Link>
         <div className="hidden space-x-4 sm:flex">
