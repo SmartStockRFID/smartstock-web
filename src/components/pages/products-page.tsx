@@ -11,8 +11,9 @@ export function ProductsPage() {
     queryFn: getProducts,
     queryKey: ["products"],
   });
+
   return (
-    <main className="flex-1 w-full max-w-7xl mx-auto max-sm:px-1 flex flex-col sm:flex-row pt-8 gap-8 *:gap-4 pb-2">
+    <main className="w-full max-w-7xl mx-auto max-sm:px-1 flex flex-col sm:flex-row pt-8 gap-8 *:gap-4 pb-2">
       {productsReq.status === "pending" && <LoadingWidget />}
       {productsReq.status === "error" && <ErrorWidget />}
       {productsReq.status === "success" && (

@@ -65,7 +65,7 @@ export function InventoriesListCard(props: Props) {
               </EmptyMedia>
               <EmptyTitle>Sem inventários</EmptyTitle>
               <EmptyDescription>
-                Nenhum inventário realizado com a pistola ainda.
+                Nenhum inventário realizado com o leitor ainda.
               </EmptyDescription>
             </EmptyHeader>
           </Empty>
