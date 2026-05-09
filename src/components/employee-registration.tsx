@@ -67,7 +67,7 @@ export function EmployeeForm({ className }: { className?: string }) {
               Senha do funcionário
             </FieldLabel>
             <Input
-              type="password"
+              type="number"
               id={ids.employeePassword}
               required
               {...register("password")}
@@ -78,7 +78,7 @@ export function EmployeeForm({ className }: { className?: string }) {
               Confirme a senha do funcionário
             </FieldLabel>
             <Input
-              type="password"
+              type="number"
               id={ids.confirmPassword}
               required
               {...register("confirmPassword")}

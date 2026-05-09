@@ -1,5 +1,6 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import {
   AlertCircleIcon,
   Download,
@@ -8,7 +9,7 @@ import {
   Tag,
 } from "lucide-react";
 import { toast } from "sonner";
-import { getInventoriePdf } from "@/api/queries";
+import { getInventoriePdf, getProducts } from "@/api/queries";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import type {
   InventoryReading,
@@ -60,12 +61,39 @@ export function InventoryDetailCard(props: Props) {
 
   const hasContent = !!props?.inventoryReadings?.length;
 
+  async function handleDownload() {
+    const blob = await getInventoriePdf(props.selectedInventory?.id ?? -1);
+
+    if (blob instanceof Error) {
+      toast.error("Erro ao buscar PDF!");
+    } else {
+      try {
+        const url = window.URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+        link.href = url;
+
+        link.download = `Inventário-${props.selectedInventory?.id}.pdf`;
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.parentNode?.removeChild(link);
+
+        window.URL.revokeObjectURL(url);
+      } catch {
+        toast.error("Erro ao gerar PDF!");
+      }
+    }
+  }
+
   if (isDesktop) {
     return (
       <Card className={cn("h-fit", props.className)}>
         <CardHeader>
           <CardTitle className={cn("text-center relative", Typography.h3)}>
-            Detalhes do inventário
+            Detalhes do inventário {props.selectedInventory?.id ?? ""}
             {props.selectedInventory !== null && (
               <div className="absolute left-0 bottom-1">
                 <InventoryStatusBadge status={props.selectedInventory.status} />
@@ -73,36 +101,7 @@ export function InventoryDetailCard(props: Props) {
             )}
             {props.selectedInventory !== null && (
               <div className="absolute right-0 bottom-1">
-                <Button
-                  onClick={async () => {
-                    const blob = await getInventoriePdf(
-                      props.selectedInventory?.id ?? -1,
-                    );
-
-                    if (blob instanceof Error) {
-                      toast.error("Erro ao buscar PDF!");
-                    } else {
-                      try {
-                        const url = window.URL.createObjectURL(blob);
-
-                        const link = document.createElement("a");
-                        link.href = url;
-
-                        link.download = `Inventário-${props.selectedInventory?.id}.pdf`;
-
-                        document.body.appendChild(link);
-
-                        link.click();
-
-                        link.parentNode?.removeChild(link);
-
-                        window.URL.revokeObjectURL(url);
-                      } catch {
-                        toast.error("Erro ao gerar PDF!");
-                      }
-                    }
-                  }}
-                >
+                <Button onClick={handleDownload}>
                   <Download />
                 </Button>
               </div>
@@ -148,10 +147,17 @@ export function InventoryDetailCard(props: Props) {
       }}
     >
       <DrawerContent>
-        <DrawerHeader>
+        <DrawerHeader className="relative">
           <DrawerTitle className={cn("text-center relative", Typography.h3)}>
             Inventário nº {props.selectedInventory?.id}
           </DrawerTitle>
+          {props.selectedInventory !== null && (
+            <div className="absolute right-5">
+              <Button onClick={handleDownload}>
+                <Download />
+              </Button>
+            </div>
+          )}
         </DrawerHeader>
         <div className={cn("p-4", !hasContent && "pb-60")}>
           <InventoryDetailContent {...props} />
@@ -179,6 +185,20 @@ export function InventoryDetailCard(props: Props) {
 }
 
 function InventoryDetailContent(props: Omit<Props, "className">) {
+  const productsReq = useQuery({
+    queryFn: getProducts,
+    queryKey: ["products"],
+  });
+
+  const formatDate = (date: Date) =>
+    date.toLocaleString("pt-BR", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
   return (
     <>
       {!props.hasInventories && (
@@ -217,26 +237,34 @@ function InventoryDetailContent(props: Omit<Props, "className">) {
               )}
             </p>
             <p className="hidden md:block">
-              <span className="text-muted-foreground">
-                Inventário selecionado:{" "}
-              </span>
-              Nº {props.selectedInventory?.id}
+              <span className="text-muted-foreground">Horário de início: </span>
+              {formatDate(props.selectedInventory.createdAt)}
             </p>
+            {props.selectedInventory.status !== "iniciada" && (
+              <p className="hidden md:block">
+                <span className="text-muted-foreground mr-5">
+                  Horário de fim:
+                </span>
+                {formatDate(props.selectedInventory.createdAt)}
+              </p>
+            )}
             <p>
               <span className="text-muted-foreground">
-                Funcionário responsável:{" "}
+                Operador do leitor:{" "}
               </span>
               {props.selectedInventory.employeeUsername}
             </p>
           </div>
 
-          {props.fetchDetailReqStatus === "pending" && (
+          {(productsReq.status === "pending" ||
+            props.fetchDetailReqStatus === "pending") && (
             <Alert>
               <Loader className="h-4 w-4 animate-spin" />
               <AlertTitle>Buscando dados no servidor</AlertTitle>
             </Alert>
           )}
-          {props.fetchDetailReqStatus === "error" && (
+          {(productsReq.status === "error" ||
+            props.fetchDetailReqStatus === "error") && (
             <Alert variant="destructive">
               <AlertCircleIcon />
               <AlertTitle>Erro ao buscar dados do servidor.</AlertTitle>
@@ -245,39 +273,47 @@ function InventoryDetailContent(props: Omit<Props, "className">) {
               </AlertDescription>
             </Alert>
           )}
-          {props.inventoryReadings !== null && (
-            <div className="space-y-2">
-              {props.inventoryReadings.length === 0 && (
-                <Alert>
-                  <Tag />
-                  <AlertTitle>
-                    Nenhum produto lido no inventário
-                    <span
-                      className={cn(
-                        "max-sm:hidden",
-                        props.selectedInventory.status !== "iniciada" &&
-                          "hidden",
-                      )}
-                    >
-                      {" "}
-                      até o momento
-                    </span>
-                    .
-                  </AlertTitle>
-                </Alert>
-              )}
-
-              {props.inventoryReadings.length > 0 &&
-                props.inventoryReadings.map((read) => (
-                  <Alert key={read.id}>
+          {productsReq.status === "success" &&
+            props.inventoryReadings !== null && (
+              <div className="space-y-2">
+                {props.inventoryReadings.length === 0 && (
+                  <Alert>
                     <Tag />
                     <AlertTitle>
-                      {read.quantity} produtos {read.productCode} lidos
+                      Nenhum produto lido no inventário
+                      <span
+                        className={cn(
+                          "max-sm:hidden",
+                          props.selectedInventory.status !== "iniciada" &&
+                            "hidden",
+                        )}
+                      >
+                        {" "}
+                        até o momento
+                      </span>
+                      .
                     </AlertTitle>
                   </Alert>
-                ))}
-            </div>
-          )}
+                )}
+
+                {props.inventoryReadings.length > 0 &&
+                  props.inventoryReadings.map((read) => (
+                    <Alert key={read.id}>
+                      <Tag />
+                      <AlertTitle>
+                        {read.quantity} produto
+                        {props.inventoryReadings?.length !== 1 && "s"}{" "}
+                        <strong>
+                          {productsReq.data.find(
+                            (p) => p.productCode === read.productCode,
+                          )?.name ?? ""}
+                        </strong>{" "}
+                        lido{props.inventoryReadings?.length !== 1 && "s"}
+                      </AlertTitle>
+                    </Alert>
+                  ))}
+              </div>
+            )}
         </div>
       )}
     </>

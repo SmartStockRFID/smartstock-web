@@ -34,12 +34,16 @@ export interface InventorySummary {
   id: number;
   status: InventoryStatus;
   employeeUsername: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface GetAllInventoryDTO {
   id: number;
   status: InventoryStatus;
   username_funcionario: string;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface InventoryReading {

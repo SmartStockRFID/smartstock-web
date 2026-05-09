@@ -57,6 +57,8 @@ export async function getInventories(): Promise<InventorySummary[]> {
       id: i.id,
       status: i.status,
       employeeUsername: i.username_funcionario,
+      createdAt: new Date(i.created_at),
+      updatedAt: new Date(i.updated_at),
     };
   };
 
