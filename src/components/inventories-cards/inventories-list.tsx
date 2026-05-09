@@ -28,22 +28,22 @@ export function InventoriesListCard(props: Props) {
         </CardTitle>
       </CardHeader>
 
-      <div className="px-3 sm:px-6">
+      <div className="max-h-[70vh] overflow-y-auto px-3 sm:px-6">
         {props.inventories.length > 0 ? (
           <ul className="space-y-3 sm:space-y-4">
             {props.inventories.map((inv) => (
               <li
                 key={inv.id}
                 className={cn(
-                  "bg-gray-100 hover:bg-gray-200 rounded-sm transition-colors box-border",
+                  "box-border rounded-sm bg-gray-100 transition-colors hover:bg-gray-200",
                   {
-                    "outline-2 outline-blue-400 bg-gray-300 hover:bg-gray-300":
+                    "bg-gray-300 outline-2 outline-blue-400 hover:bg-gray-300":
                       props.selectedInventory?.id === inv.id,
                   },
                 )}
               >
                 <button
-                  className="flex items-center justify-between w-full p-3 cursor-pointer"
+                  className="flex w-full cursor-pointer items-center justify-between p-3"
                   type="button"
                   onClick={() =>
                     props.setSelectedInventory(
@@ -65,32 +65,11 @@ export function InventoriesListCard(props: Props) {
               </EmptyMedia>
               <EmptyTitle>Sem inventários</EmptyTitle>
               <EmptyDescription>
-                Nenhum inventário realizado com a pistola ainda.
+                Nenhum inventário realizado com o leitor ainda.
               </EmptyDescription>
             </EmptyHeader>
           </Empty>
         )}
-
-        {/* {props.inventories.length > 0 && (
-          <CardFooter className="px-0 mt-4">
-            <Pagination>
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink>1</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationEllipsis />
-                </PaginationItem>
-                <PaginationItem>
-                  <PaginationNext />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
-          </CardFooter>
-        )} */}
       </div>
     </Card>
   );

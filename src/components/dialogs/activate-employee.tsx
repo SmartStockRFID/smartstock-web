@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 import type { ReactNode } from "react";
 import { toast } from "sonner";
-import { activateEmployee } from "@/api/mutations";
+import { activateEmployee } from "@/api/actions";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,

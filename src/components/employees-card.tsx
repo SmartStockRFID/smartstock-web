@@ -12,6 +12,7 @@ export function EmployeesCard({
   emplooyees,
   className,
 }: { emplooyees: Employee[] } & ClassNameProp) {
+  emplooyees = emplooyees.filter((e) => e.role === "stockist");
   return (
     <Card className={cn(className)}>
       <CardHeader>
@@ -22,49 +23,39 @@ export function EmployeesCard({
       <CardContent>
         {emplooyees.length > 0 ? (
           <ul className="space-y-3">
-            {emplooyees
-              .filter((e) => e.role === "stockist")
-              .map((e) => (
-                <li
-                  key={e.username}
-                  className="flex items-center justify-between p-3 bg-gray-100 border rounded-lg"
-                >
-                  <div className="flex items-center gap-2">
-                    <UserCircle />
-                    <p className="flex flex-col">
-                      <span className="text-sm font-semibold">Funcionário</span>
-                      <span>{e.username}</span>
-                    </p>
-                  </div>
-                  {e.is_active ? (
-                    <DeactivateUserDialog employee={e}>
-                      <Button variant="destructive">Desativar Acesso</Button>
-                    </DeactivateUserDialog>
-                  ) : (
-                    <ActivateUserDialog employee={e}>
-                      <Button className="bg-green-800 hover:bg-green-700">
-                        Ativar Acesso
-                      </Button>
-                    </ActivateUserDialog>
-                  )}
-                </li>
-              ))}
+            {emplooyees.map((e) => (
+              <li
+                key={e.username}
+                className="flex items-center justify-between rounded-lg border bg-gray-100 p-3"
+              >
+                <div className="flex items-center gap-2">
+                  <UserCircle />
+                  <p className="flex flex-col">
+                    <span className="font-semibold text-sm">Funcionário</span>
+                    <span>{e.username}</span>
+                  </p>
+                </div>
+                {e.is_active ? (
+                  <DeactivateUserDialog employee={e}>
+                    <Button variant="destructive">Desativar Acesso</Button>
+                  </DeactivateUserDialog>
+                ) : (
+                  <ActivateUserDialog employee={e}>
+                    <Button className="bg-green-800 hover:bg-green-700">
+                      Ativar Acesso
+                    </Button>
+                  </ActivateUserDialog>
+                )}
+              </li>
+            ))}
           </ul>
         ) : (
           <Alert>
             <AlertCircleIcon />
-            <AlertTitle>
-              Nenhum funcionário cadastrado até o momento.
-            </AlertTitle>
+            <AlertTitle>Nenhum operador cadastrado até o momento.</AlertTitle>
           </Alert>
         )}
       </CardContent>
-
-      {/* <CardFooter>
-        <EmployeeFormModal>
-          <Button className="w-full">Adicionar funcionário</Button>
-        </EmployeeFormModal>
-      </CardFooter> */}
     </Card>
   );
 }

@@ -1,104 +1,127 @@
-  # SmartStock RFID - Web
+🌎 [English](README.md) | 🇧🇷 [Português](README.pt-br.md)
+
+# Inventories web Dashboard  (Smart Stock Project)
   ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white) ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+   
 
-  Módulo frontend feito em Next.js para gestão de inventário integrado ao projeto SSRFID.
+Frontend module built with Next.js for inventory management integrated with the SSRFID project.
 
-  ## ✨ Funcionalidades
+## ✨ Features
 
-  O front oferece acesso às seguintes funcionalidades:
+The frontend provides access to the following features:
 
-  - **Histórico de Conferências (Parcialmente implementada)**: Visualize um histórico detalhado de todas as conferências de inventário realizadas, incluindo leituras de produtos e eventos associados.
-  - **CRUD de Produtos (Temporária\*)**: Adicione novos produtos ao inventário, especificando nome, código, descrição e localização, e depois consulte e filtre a lista de produtos já cadastrados no sistema.
-  - **Gestão de Usuários (Futura)**: Registre novos usuários no sistema e os gerencie, atribuindo diferentes funções como Administrador ou Operador.
+  - **Inventory Checks History**: View a detailed history of all performed inventory checks, including product readings and associated events.
+  - **User Management**: Register new users in the system and manage them, assigning different roles such as Administrator or Operator.
+  - **Product CRUD (Provisional\*)**: Add new products to the inventory by specifying name, code, description, and location, then view and filter the list of products already registered in the system.
 
-  *Devido ao seu caráter temporário, essa funcionalidade foi codificada com auxílio de ferramentas _low-code_. Os arquivos feitos assim podem ser diferenciados pelo comentário "low-code" em seu topo.
+\*In the final product, the expectation is to only integrate with a product management module from an existing system.
 
-  ## 🚀 Tecnologias Utilizadas
+## 📷 Screenshots
 
-  Este projeto foi construído com as seguintes tecnologias:
+Here are some screenshots of the application in action:
 
-  - **Linguagem**: [TypeScript 5](https://www.typescriptlang.org/)
-  - **Framework**: [Next.js 16](https://nextjs.org/) (com App Router)
-  - **Estilização**: [Tailwind CSS 4](https://tailwindcss.com/),  [shadcn/ui](https://ui.shadcn.com/) e [Lucide](https://lucide.dev/).
+| Inventories | Stockists |
+|-------------|-----------|
+| ![Inventories Screen](docs/inventories.screen.webp) | ![Stockists Screen](docs/stockists.screen.webp) |
 
-  ## ⚙️ Instalação e uso
+For more screenshots:
+- [Login Screen](docs/login.screen.webp)
+- [Products Screen](docs/products.screen.webp)
 
-  ### Pré-requisitos
+## 🛠️ Technologies Used
 
-  Antes de começar, você precisará ter instalado:
+This project was built with the following technologies:
 
+  - **Language**: [TypeScript 5](https://www.typescriptlang.org/)
+  - **Framework**: [Next.js 16](https://nextjs.org/) (with App Router)
+  - **Styling**: [Tailwind CSS 4](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/) and [Lucide](https://lucide.dev/).
 
-  * [Node.js](https://nodejs.org/) (versão 20.9 ou superior)
-  * [pnpm](https://pnpm.io/) (gerenciador de pacotes recomendado)
+## 💻 Installation and Usage
 
+### Prerequisites
 
-  ### Instalação
+Before you begin, you will need to have installed:
 
+  * [Node.js](https://nodejs.org/) (version 20.9 or higher)
+  * [pnpm](https://pnpm.io/) (recommended package manager)
 
+OR
 
-  1.  Clone o repositório:
-      ```bash
-      git clone {repositório do ssrfid-front}
-      cd ssrfid-front
-      ```
+  * [Docker](https://docs.docker.com/engine/install/)
 
-  2.  Instale as dependências:
-      ```bash
-      pnpm install
-      ```
+### Installation
 
-  3.  Crie um arquivo .env com base no .env.example e adicione as configurações necessárias:
-      ```bash
-      cp .env.example .env
-      ```
+1.  Clone the repository:
 
-  ### Executando o Servidor de Desenvolvimento
+    ```bash
+    git clone {smartstock-web repository}
+    cd smartstock-web
+    ```
 
-  Para iniciar a aplicação em modo de desenvolvimento, execute:
+2.  Install dependencies:
 
-  ```bash
-  pnpm dev
-  ```
+    ```bash
+    pnpm install
+    ```
 
+3.  Create a `.env` file based on `.env.example` and add the necessary configurations:
 
+    ```bash
+    cp .env.example .env
+    ```
 
-  Abra [http://localhost:3000](http://localhost:3000) no seu navegador para ver o resultado. A página será atualizada automaticamente conforme você edita os arquivos.
+### Running the Development Server
 
+To start the application in development mode, run:
 
+```bash
+pnpm dev
+```
 
-  ## 📁 Estrutura do Projeto
+Or, to spin up the project container locally, use one of the commands below:
 
-  A estrutura de pastas do projeto segue as convenções do Next.js App Router:
+```bash
+# Start the services defined in the compose.dev.yaml file
+docker compose -f compose.dev.yaml up
 
-  ```
-  src/
-  ├── api/                    # Lógica de comunicação com a API
-  │   ├── app/                # Páginas e Layouts
-  ├── components/             # Componentes React reutilizáveis
-  │   ├── ui                  # Componentes base (shadcn/ui)
-  ├── constants.ts            # Configurações da aplicação
-  ├── env/                    # Configuração e validação de variáveis de ambiente
-  ├── hooks/                  # Hooks customizados
-  ├── types.ts                # Definições de tipos TypeScript
-  └── utils.ts                # Funções utilitárias
-  ```
+# Start the services and force image rebuilds
+docker compose -f compose.dev.yaml up --build
+```
 
-  ## ✅ Todo
+To tear down (stop and remove) the containers:
 
-  As seguintes funcionalidades ainda precisam ser implementadas:
+```bash
+docker compose -f compose.dev.yaml down
+```
 
-  - Visualização dos detalhes do Inventário em formato de Drawer no mobile
-  - Em detalhes do Inventário, adicionar lista de produtos e eventos associados a ele
-  - Paginação na listagem de Inventários
-  - Dockerizar aplicação
-  - Adicionar relatórios dos Inventários em CSV/PDF
-  - Adicionar gráficos com informações sobre os Inventários em sua listagem
-  - Alterar o back pra retornar a data/hora do inventario no GetAll _(em caso de demora)_
-  - CRUD de funcionários _(aguardando backend)_
-  - Melhorar experiência mobile e completar CRUD no módulo de Produtos _(baixa prioridade)_
-  - Adicionar uma cobertura mínima de testes _(desejável)_
+Open [http://localhost:3000](https://www.google.com/search?q=http://localhost:3000) in your browser to see the result. The page will automatically reload as you edit the files.
 
+## 🌐 Production Deployment
 
-## 👀 OBS:
+As a Node.js project, the application can be easily deployed on most cloud providers. The most practical way is on [Vercel](https://vercel.com), but there are many options, such as [Netlify](https://www.netlify.com/) and [Render](https://render.com/).
 
-- Onde você ver object instanceof Error, deveria ser object instanceof ApplicationException (para pegar os tipos ExternalAPIException e NetworkFetchException), mas por algum motivo retorna false sempre.
+For *self-hosting*, you can use the [`compose.prod.yaml`](compose.prod.yaml) file to spin up the application in production. In addition to Next.js itself, the compose file also configures an Nginx server.
+
+## 🔮 Future of the project
+
+Moving forward with the project, these could be the next steps:
+
+  - Pagination for the Inventory listing
+  - Improve form validation and error feedback
+  - Expand/enrich Inventory reports
+  - Add charts with information about the Inventories in the listing
+  - Modify the backend to return the inventory date/time in the GetAll request *(in case of delays)*
+  - Add test coverage
+  - Complete the CRUD in the Products module\* *(keeping in mind it is a temporary module)*
+  - (Bug) Verify if token refresh flow is working
+
+## 📄 License
+
+This project is licensed under the MIT License.
+See the [LICENSE](LICENSE) file for more details.
+
+## 👨‍💻 About
+
+This repository contains the frontend implementation of the project, developed by **[Ruan Macedo Santos](https://github.com/msruan)**.
+
+Developed for the **Smart Stock** project under the **EmbarcaTech Program**.

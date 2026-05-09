@@ -16,7 +16,7 @@ const rubikFont = Rubik({
 });
 
 export const metadata: Metadata = {
-  title: "SSRFID",
+  title: newlandTheme ? "SSRFID" : "SmartStock",
   description: "Módulo de gestão do inventário",
   icons: [
     {
@@ -37,7 +37,7 @@ export default function RootLayout({
     <html lang="pt-BR" suppressHydrationWarning>
       <body
         className={cn(
-          `${font.className} ${theme} min-h-svh flex flex-col antialiased bg-muted`,
+          `${font.className} ${theme} flex min-h-svh flex-col bg-muted antialiased`,
         )}
       >
         <RootProvider>{children}</RootProvider>

@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { toast } from "sonner";
-import { reopenInventory } from "@/api/mutations";
+import { reopenInventory } from "@/api/actions";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
