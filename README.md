@@ -16,6 +16,18 @@ The frontend provides access to the following features:
 
 \*In the final product, the expectation is to only integrate with a product management module from an existing system.
 
+## 📷 Screenshots
+
+Here are some screenshots of the application in action:
+
+| Inventories | Stockists |
+|-------------|-----------|
+| ![Inventories Screen](docs/inventories.screen.webp) | ![Stockists Screen](docs/stockists.screen.webp) |
+
+For more screenshots:
+- [Login Screen](docs/login.screen.webp)
+- [Products Screen](docs/products.screen.webp)
+
 ## 🛠️ Technologies Used
 
 This project was built with the following technologies:

@@ -15,6 +15,18 @@
 
   *No produto final, a expectativa é de somente realizar integração com um módulo de gestão de produtos de outro sistema já existente.
 
+  ## 📷 Screenshots
+
+  Abaixo são exibidas algumas capturas da aplicação em ação:
+
+  | Inventários | Operadores |
+  |-------------|------------|
+  | ![Tela de Inventários](docs/inventories.screen.webp) | ![Tela de Operadores](docs/stockists.screen.webp) |
+
+  Para mais capturas:
+  - [Tela de Login](docs/login.screen.webp)
+  - [Tela de Produtos](docs/products.screen.webp)
+
   ## 🛠️ Tecnologias Utilizadas
 
   Este projeto foi construído com as seguintes tecnologias:
