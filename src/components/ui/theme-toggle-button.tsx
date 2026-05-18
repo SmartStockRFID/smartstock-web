@@ -198,7 +198,7 @@ export const ThemeToggleButton = ({
       aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
     >
       Mudar tema
-      <DropdownMenuShortcut className="relative overflow-hidden transition-all cursor-pointer flex items-center justify-center">
+      <DropdownMenuShortcut className="relative flex cursor-pointer items-center justify-center overflow-hidden transition-all">
         {theme === "light" ? (
           <Sun className="h-[1.2rem] w-[1.2rem]" />
         ) : (
