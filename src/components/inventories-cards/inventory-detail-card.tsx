@@ -199,6 +199,10 @@ function InventoryDetailContent(props: Omit<Props, "className">) {
       minute: "2-digit",
     });
 
+  const okReadings = props.inventoryReadings?.filter((read) =>
+    productsReq.data?.find((p) => p.productCode === read.productCode),
+  );
+
   return (
     <>
       {!props.hasInventories && (
@@ -273,47 +277,46 @@ function InventoryDetailContent(props: Omit<Props, "className">) {
               </AlertDescription>
             </Alert>
           )}
-          {productsReq.status === "success" &&
-            props.inventoryReadings !== null && (
-              <div className="space-y-2">
-                {props.inventoryReadings.length === 0 && (
-                  <Alert>
+          {productsReq.status === "success" && okReadings && (
+            <div className="space-y-2">
+              {okReadings.length === 0 && (
+                <Alert>
+                  <Tag />
+                  <AlertTitle>
+                    Nenhum produto lido no inventário
+                    <span
+                      className={cn(
+                        "max-sm:hidden",
+                        props.selectedInventory.status !== "iniciada" &&
+                          "hidden",
+                      )}
+                    >
+                      {" "}
+                      até o momento
+                    </span>
+                    .
+                  </AlertTitle>
+                </Alert>
+              )}
+
+              {(okReadings?.length ?? -1) > 0 &&
+                okReadings?.map((read) => (
+                  <Alert key={read.id}>
                     <Tag />
                     <AlertTitle>
-                      Nenhum produto lido no inventário
-                      <span
-                        className={cn(
-                          "max-sm:hidden",
-                          props.selectedInventory.status !== "iniciada" &&
-                            "hidden",
-                        )}
-                      >
-                        {" "}
-                        até o momento
-                      </span>
-                      .
+                      {read.quantity} produto
+                      {read.quantity !== 1 && "s"}{" "}
+                      <strong>
+                        {productsReq.data.find(
+                          (p) => p.productCode === read.productCode,
+                        )?.name ?? ""}
+                      </strong>{" "}
+                      lido{read.quantity !== 1 && "s"}
                     </AlertTitle>
                   </Alert>
-                )}
-
-                {props.inventoryReadings.length > 0 &&
-                  props.inventoryReadings.map((read) => (
-                    <Alert key={read.id}>
-                      <Tag />
-                      <AlertTitle>
-                        {read.quantity} produto
-                        {read.quantity !== 1 && "s"}{" "}
-                        <strong>
-                          {productsReq.data.find(
-                            (p) => p.productCode === read.productCode,
-                          )?.name ?? ""}
-                        </strong>{" "}
-                        lido{read.quantity !== 1 && "s"}
-                      </AlertTitle>
-                    </Alert>
-                  ))}
-              </div>
-            )}
+                ))}
+            </div>
+          )}
         </div>
       )}
     </>
